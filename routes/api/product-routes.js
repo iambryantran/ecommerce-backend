@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
     const product = await Product.findAll({
       include: [{ model: Category }, { model: Tag }],
     });
-    res.status(200).json(tag);
+    res.status(200).json(product);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -29,12 +29,13 @@ router.get('/:id', async (req, res) => {
       res.status(404).json({ message: 'No product with this id!' });
       return;
     };
+    res.status(200).json(product);
   } catch (err) {
     res.status(500).json(err);
   };
 });
 
-// The POST route was already provided. I will not be changing it, but note that it does not use async/await.
+// The POST route was already provided.
 // create new product
 router.post('/', (req, res) => {
   /* req.body should look like this...
@@ -67,7 +68,7 @@ router.post('/', (req, res) => {
     });
 });
 
-// The PUT route was already provided. I will not be changing it, but note that it does not use async/await.
+// The PUT route was already provided.
 // update product
 router.put('/:id', (req, res) => {
   // update product data
@@ -122,7 +123,7 @@ router.delete('/:id', async (req, res) => {
       res.status(404).json({ message: 'No tag with this id!' });
       return;
     }
-    res.status(200).json(tag);
+    res.status(200).json(product[0]);
   } catch (err) {
     res.status(500).json(err);
   }

@@ -27,6 +27,7 @@ router.get('/:id', async (req, res) => {
       res.status(404).json({ message: 'No tag with this id!' });
       return;
     };
+    res.status(200).json(tag);
   } catch (err) {
     res.status(500).json(err);
   };
@@ -47,13 +48,14 @@ router.put('/:id', async (req, res) => {
   try {
     const tag = await Tag.update(req.body, {
       where: {
-        id: req.body.id,
+        id: req.params.id,
       },
     });
     if (!tag[0]) {
       res.status(404).json({ message: 'No tag with this id!' });
       return;
-    }
+    };
+    res.status(200).json(tag);
   } catch (err) {
     res.status(500).json(err);
   };
@@ -71,7 +73,7 @@ router.delete('/:id', async (req, res) => {
       res.status(404).json({ message: 'No tag with this id!' });
       return;
     }
-    res.status(200).json(tag);
+    res.status(200).json(tag[0]);
   } catch (err) {
     res.status(500).json(err);
   }
